@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commessa Data-Driven — Diario di tesi</title>
+<meta name="description" content="Diario di ricerca sulla progettazione di un sistema data-driven per il monitoraggio della performance di commessa nelle imprese di costruzioni.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Newsreader:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a17;
+    --ink-soft: #4a4a42;
+    --paper: #f4f1ea;
+    --paper-2: #ece7db;
+    --line: #d8d2c4;
+    --accent: #c2410c;        /* terracotta / mattone */
+    --accent-deep: #7c2d12;
+    --data: #1d4e4a;          /* verde-petrolio per i "dati" */
+    --maxw: 1100px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(var(--line) 0.5px, transparent 0.5px);
+    background-size: 22px 22px;
+  }
+  a { color: inherit; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    border-bottom: 1.5px solid var(--ink);
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-inner {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .brand .dot { width: 9px; height: 9px; background: var(--accent); border-radius: 50%; display: inline-block; }
+  .nav { display: flex; gap: 26px; font-size: 14px; }
+  .nav a { text-decoration: none; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: border-color .2s; }
+  .nav a:hover { border-color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 80px 28px 56px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent-deep);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 26px;
+  }
+  .kicker::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 5.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero .lead {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    max-width: 640px;
+    color: var(--ink-soft);
+  }
+  .hero .meta {
+    margin-top: 34px;
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border: 1.2px solid var(--ink);
+    border-radius: 100px;
+    background: var(--paper);
+  }
+  .tag.fill { background: var(--data); color: #fff; border-color: var(--data); }
+
+  /* ---------- Section heading ---------- */
+  .section { max-width: var(--maxw); margin: 0 auto; padding: 64px 28px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 38px; gap: 20px; flex-wrap: wrap; }
+  .section-head h2 {
+    font-family: 'Fraunces', serif; font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.3rem); letter-spacing: -0.01em;
+  }
+  .section-head .count { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- Article list ---------- */
+  .posts { display: flex; flex-direction: column; }
+  .post {
+    display: grid; grid-template-columns: 110px 1fr 150px;
+    gap: 28px; align-items: start;
+    padding: 28px 0; border-top: 1px solid var(--line);
+    text-decoration: none; transition: background .2s;
+    position: relative;
+  }
+  .post:hover { background: var(--paper-2); }
+  .post:hover h3 { color: var(--accent); }
+  .post:last-child { border-bottom: 1px solid var(--line); }
+  .post .num { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent-deep); padding-top: 4px; }
+  .post .chap { display: block; font-size: 11px; color: var(--ink-soft); margin-top: 6px; letter-spacing: 0.04em; }
+  .post h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.35rem; line-height: 1.2; transition: color .2s; margin-bottom: 8px; }
+  .post p { font-size: 0.95rem; color: var(--ink-soft); max-width: 560px; }
+  .post .side { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); padding-top: 4px; }
+  .post .status { display: inline-block; margin-top: 8px; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+  .status.draft { background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-soft); }
+  .status.live { background: var(--data); color: #fff; }
+  .status.next { background: #fff3e6; border: 1px solid var(--accent); color: var(--accent-deep); }
+
+  /* ---------- About strip ---------- */
+  .about {
+    background: var(--ink); color: var(--paper);
+    border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
+  }
+  .about-inner { max-width: var(--maxw); margin: 0 auto; padding: 60px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+  .about-inner h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.8rem; margin-bottom: 18px; }
+  .about-inner p { color: #c9c4b8; font-family: 'Newsreader', serif; font-size: 1.08rem; margin-bottom: 14px; }
+  .about-inner .accent-line { color: var(--paper); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-self: center; }
+  .stat { border-left: 2px solid var(--accent); padding-left: 16px; }
+  .stat .big { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+  .stat .lbl { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #9b968a; margin-top: 6px; }
+
+  /* ---------- Footer ---------- */
+  footer { max-width: var(--maxw); margin: 0 auto; padding: 48px 28px 70px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; font-size: 13px; color: var(--ink-soft); }
+  footer .brand { color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .nav { display: none; }
+    .post { grid-template-columns: 50px 1fr; }
+    .post .side { display: none; }
+    .about-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span> Commessa / Data-Driven</div>
+    <nav class="nav">
+      <a href="#articoli">Articoli</a>
+      <a href="#progetto">Il progetto</a>
+      <a href="post-modello.html">Post modello</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="kicker">Diario di tesi · Ingegneria gestionale & costruzioni</div>
+  <h1>Misurare la <em>commessa</em>,<br>un dato alla volta.</h1>
+  <p class="lead">Appunti pubblici dalla progettazione di un sistema data-driven per monitorare la performance di commessa nelle imprese di costruzioni. Studio, costruisco, sbaglio, racconto.</p>
+  <div class="meta">
+    <span class="tag fill">KPI di commessa</span>
+    <span class="tag">EVM</span>
+    <span class="tag">BIM</span>
+    <span class="tag">IoT in cantiere</span>
+    <span class="tag">Dashboard</span>
+    <span class="tag">PMI edili</span>
+  </div>
+</header>
+
+<section class="section" id="articoli">
+  <div class="section-head">
+    <h2>Piano editoriale</h2>
+    <span class="count">12 articoli · 1 ogni 2 settimane</span>
+  </div>
+
+  <div class="posts">
+
+    <a class="post" href="post-capitolo1.html">
+      <div class="num">01<span class="chap">Cap. 1.1</span></div>
+      <div>
+        <h3>Perché l'edilizia italiana è in ritardo sulla digitalizzazione</h3>
+        <p>Un settore fatto di PMI, margini stretti e processi su carta. Cosa frena la digitalizzazione e perché il monitoraggio dei dati è la prima leva da tirare.</p>
+      </div>
+      <div class="side">~8 min<br><span class="status live">Pubblicato</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">02<span class="chap">Cap. 1.2</span></div>
+      <div>
+        <h3>Cos'è davvero una commessa (e perché è così difficile da controllare)</h3>
+        <p>Ogni cantiere è un prototipo irripetibile. Esploriamo le caratteristiche della commessa e le criticità gestionali che la rendono un incubo per il controllo dei costi.</p>
+      </div>
+      <div class="side">~7 min<br><span class="status next">Prossimo</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">03<span class="chap">Cap. 1.3</span></div>
+      <div>
+        <h3>Project management e controllo costi: il minimo sindacale che manca</h3>
+        <p>WBS, budget di commessa, scostamenti. I fondamentali del project management applicati al cantiere, spiegati senza gergo da manuale.</p>
+      </div>
+      <div class="side">~9 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">04<span class="chap">Cap. 1.4</span></div>
+      <div>
+        <h3>I KPI di commessa spiegati con un cantiere vero</h3>
+        <p>Avanzamento fisico vs avanzamento economico, produttività, scostamento. Quali indicatori contano davvero e come si leggono insieme.</p>
+      </div>
+      <div class="side">~8 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">05<span class="chap">Cap. 1.5</span></div>
+      <div>
+        <h3>EVM spiegato semplice: il metodo del valore guadagnato</h3>
+        <p>CV, SV, CPI, SPI senza paura. Come l'Earned Value Management ti dice se sei in ritardo o sopra budget prima che sia troppo tardi.</p>
+      </div>
+      <div class="side">~10 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">06<span class="chap">Cap. 1.5</span></div>
+      <div>
+        <h3>BIM, EVM e gli strumenti digitali: la cassetta degli attrezzi</h3>
+        <p>Panoramica onesta degli strumenti data-driven per le costruzioni: cosa promettono, cosa mantengono, cosa serve davvero a una PMI.</p>
+      </div>
+      <div class="side">~9 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">07<span class="chap">Cap. 2.1</span></div>
+      <div>
+        <h3>Progetto un sistema di monitoraggio: gli obiettivi e i vincoli</h3>
+        <p>Inizia la parte pratica. Cosa deve fare il sistema, per chi, con quali vincoli di budget e competenze in una piccola impresa edile.</p>
+      </div>
+      <div class="side">~7 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">08<span class="chap">Cap. 2.2</span></div>
+      <div>
+        <h3>Raccogliere dati in cantiere: app mobile e sensori IoT</h3>
+        <p>Il dato nasce dove si scava. Come far entrare i dati nel sistema senza appesantire chi lavora: inserimento mobile e sensoristica.</p>
+      </div>
+      <div class="side">~8 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">09<span class="chap">Cap. 2.4</span></div>
+      <div>
+        <h3>Dietro le quinte: come ho progettato il database</h3>
+        <p>Tabelle, relazioni, logica delle query. Il cuore tecnico del sistema, raccontato con scelte concrete e qualche ripensamento.</p>
+      </div>
+      <div class="side">~11 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">10<span class="chap">Cap. 2.5</span></div>
+      <div>
+        <h3>La dashboard: trasformare i dati in decisioni</h3>
+        <p>Progettare il reporting visivo: cosa mostrare, cosa nascondere, come far sì che un capocantiere capisca tutto in 10 secondi.</p>
+      </div>
+      <div class="side">~9 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">11<span class="chap">Cap. 3</span></div>
+      <div>
+        <h3>Case study: il sistema applicato a una commessa reale</h3>
+        <p>Dalla teoria al cantiere. Configurazione, dati raccolti e primi risultati del monitoraggio su una commessa di Saviatesta srl.</p>
+      </div>
+      <div class="side">~12 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+    <a class="post" href="#">
+      <div class="num">12<span class="chap">Cap. 3 / Concl.</span></div>
+      <div>
+        <h3>Cosa ha funzionato e cosa no: valutazione critica</h3>
+        <p>Punti di forza, limiti e lezioni imparate. Un bilancio onesto del sistema e dove andrebbe migliorato.</p>
+      </div>
+      <div class="side">~8 min<br><span class="status draft">In bozza</span></div>
+    </a>
+
+  </div>
+</section>
+
+<section class="about" id="progetto">
+  <div class="about-inner">
+    <div>
+      <h2>Il progetto</h2>
+      <p>Questo blog è il diario di una tesi: la <span class="accent-line">progettazione e applicazione di un sistema data-driven</span> per il monitoraggio della performance di commessa nelle imprese di costruzioni.</p>
+      <p>L'idea è semplice: scrivere mentre studio. Ogni articolo nasce da un pezzo di ricerca, riscritto in modo che sia utile a chi nel settore vive gli stessi problemi — project manager, geometri, ingegneri, titolari di PMI edili.</p>
+      <p>Il blog stesso è un esercizio di ciò che la tesi sostiene: meglio costruire qualcosa di digitale che parlarne soltanto.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="big">3</div><div class="lbl">Capitoli di tesi</div></div>
+      <div class="stat"><div class="big">12</div><div class="lbl">Articoli previsti</div></div>
+      <div class="stat"><div class="big">14gg</div><div class="lbl">Ritmo di uscita</div></div>
+      <div class="stat"><div class="big">1</div><div class="lbl">Caso di studio reale</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand"><span class="dot"></span> Commessa / Data-Driven · 2026</div>
+  <div>Diario di tesi di Luca Saviatesta · scritto in Markdown, servito statico.</div>
+</footer>
+
+</body>
+</html>
