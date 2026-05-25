@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perché l'edilizia italiana è in ritardo sulla digitalizzazione — Commessa Data-Driven</title>
+<meta name="description" content="Un settore fatto di PMI, margini stretti e processi su carta. Cosa frena la digitalizzazione dell'edilizia italiana.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Newsreader:ital,opsz@0,6..72;1,6..72&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a17; --ink-soft: #4a4a42; --paper: #f4f1ea; --paper-2: #ece7db;
+    --line: #d8d2c4; --accent: #c2410c; --accent-deep: #7c2d12; --data: #1d4e4a;
+    --maxw: 720px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Newsreader', serif; font-size: 1.18rem; line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 2px; }
+
+  .topbar { border-bottom: 1.5px solid var(--ink); background: var(--paper); position: sticky; top: 0; z-index: 50; }
+  .topbar-inner { max-width: 1100px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand .dot { width: 9px; height: 9px; background: var(--accent); border-radius: 50%; }
+  .back { font-family: 'Inter Tight', sans-serif; font-size: 14px; text-decoration: none; color: var(--ink); border-bottom: 1.5px solid transparent; }
+  .back:hover { border-color: var(--accent); }
+
+  article { max-width: var(--maxw); margin: 0 auto; padding: 64px 28px 40px; }
+  .meta-top { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 22px; display: flex; gap: 14px; flex-wrap: wrap; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 22px; }
+  .standfirst { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.32rem; color: var(--ink-soft); line-height: 1.5; margin-bottom: 30px; }
+  .byline { font-family: 'Inter Tight', sans-serif; font-size: 14px; color: var(--ink-soft); padding-bottom: 30px; margin-bottom: 40px; border-bottom: 1.5px solid var(--ink); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  article p { margin-bottom: 24px; }
+  article h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.7rem; letter-spacing: -0.01em; margin: 48px 0 18px; line-height: 1.15; }
+  article h2::before { content: "§ "; color: var(--accent); }
+  article ul { margin: 0 0 24px 1.2em; }
+  article li { margin-bottom: 10px; }
+  article strong { font-weight: 600; }
+  .lead-cap::first-letter { font-family: 'Fraunces', serif; font-weight: 800; font-size: 3.6rem; line-height: 0.7; float: left; padding: 8px 12px 0 0; color: var(--accent); }
+
+  blockquote { border-left: 3px solid var(--accent); margin: 32px 0; padding: 6px 0 6px 24px; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.4rem; color: var(--ink); }
+
+  .pull-data { background: var(--data); color: var(--paper); border-radius: 4px; padding: 28px 30px; margin: 38px 0; font-family: 'Inter Tight', sans-serif; }
+  .pull-data .big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 2.6rem; line-height: 1; margin-bottom: 8px; }
+  .pull-data .lbl { font-size: 0.95rem; color: #c9d6d4; line-height: 1.5; }
+
+  .note { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; background: var(--paper-2); border: 1px solid var(--line); border-radius: 4px; padding: 16px 18px; margin: 30px 0; line-height: 1.6; color: var(--ink-soft); }
+
+  .end-strip { max-width: var(--maxw); margin: 30px auto 0; padding: 30px 28px 70px; border-top: 1.5px solid var(--ink); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-family: 'Inter Tight', sans-serif; font-size: 14px; color: var(--ink-soft); }
+  .next-link { text-decoration: none; color: var(--ink); }
+  .next-link strong { color: var(--accent-deep); display: block; font-family: 'Fraunces', serif; font-size: 1.05rem; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="dot"></span> Commessa / Data-Driven</a>
+    <a class="back" href="index.html">← Tutti gli articoli</a>
+  </div>
+</div>
+
+<article>
+  <div class="meta-top">
+    <span>Articolo 01</span><span>·</span><span>Capitolo 1.1</span><span>·</span><span>~8 min di lettura</span>
+  </div>
+
+  <h1>Perché l'edilizia italiana è in ritardo sulla digitalizzazione</h1>
+
+  <p class="standfirst">Un settore fatto di piccole imprese, margini stretti e processi ancora su carta. Prima di costruire qualsiasi sistema data-driven, vale la pena capire perché finora non è successo.</p>
+
+  <div class="byline">
+    <span>di Luca Saviatesta</span>
+    <span>Diario di tesi · 2026</span>
+  </div>
+
+  <p class="lead-cap">Quando si parla di "trasformazione digitale", l'immagine che viene in mente è quella di una software house, di una banca, al limite di una fabbrica con i bracci robotici. Quasi mai un cantiere. Eppure le costruzioni sono uno dei settori più importanti dell'economia italiana — e uno dei più indietro quando si tratta di dati. Questo articolo apre il diario della mia tesi proprio da qui: perché un settore così grande è rimasto così analogico?</p>
+
+  <p>La risposta breve è che non c'è un solo motivo, ma una somma di condizioni strutturali che si rinforzano a vicenda. Vale la pena guardarle una per una, perché ognuna di esse diventa poi un vincolo concreto quando si prova a progettare un sistema di monitoraggio.</p>
+
+  <h2>Un settore di piccole imprese</h2>
+
+  <p>La prima caratteristica è dimensionale. Il tessuto delle costruzioni in Italia è fatto in larghissima parte di micro e piccole imprese: poche persone, spesso a conduzione familiare, con strutture organizzative leggere. Questo ha conseguenze dirette sulla digitalizzazione.</p>
+
+  <p>In una grande impresa esiste qualcuno il cui mestiere è occuparsi di processi e sistemi informativi. In una PMI edile, quella stessa persona è probabilmente il titolare, che la mattina è in cantiere e la sera fa i preventivi. Non manca la volontà: manca il <strong>tempo</strong> e, spesso, la competenza specialistica per scegliere e introdurre strumenti digitali.</p>
+
+  <div class="pull-data">
+    <div class="big">~96%</div>
+    <div class="lbl">delle imprese di costruzioni italiane ha meno di 10 addetti. La frammentazione del settore è il primo grande ostacolo all'adozione di strumenti digitali strutturati.</div>
+  </div>
+
+  <p>Questo è un dato che condiziona ogni scelta progettuale: qualunque sistema pensato per questo settore deve assumere che <em>non</em> ci sarà un reparto IT a gestirlo. Deve essere semplice, economico e quasi a manutenzione zero, altrimenti resta sulla carta.</p>
+
+  <h2>Margini stretti, niente spazio per l'errore</h2>
+
+  <p>Il secondo fattore è economico. I margini nelle costruzioni sono notoriamente sottili, e gran parte del rischio si concentra nella singola commessa. Basta una stima dei costi sbagliata, un imprevisto in cantiere o un ritardo nei pagamenti per trasformare un lavoro in perdita.</p>
+
+  <p>Verrebbe da pensare che proprio questa fragilità spinga verso un controllo più rigoroso dei dati. In parte è vero. Ma c'è un paradosso: quando i margini sono stretti, ogni euro speso in "cose che non costruiscono" — software, formazione, tempo per inserire dati — viene percepito come un costo, non come un investimento. La digitalizzazione finisce così in fondo alla lista delle priorità.</p>
+
+  <blockquote>Il dato non si raccoglie perché manca il tempo; manca il tempo perché senza dati si lavora male. È un circolo vizioso.</blockquote>
+
+  <h2>I processi vivono ancora sulla carta (e nella testa delle persone)</h2>
+
+  <p>Il terzo elemento è culturale e operativo. Molte informazioni cruciali di una commessa non sono scritte da nessuna parte in modo strutturato: stanno su fogli di carta, su messaggi, su file Excel personali, o semplicemente nell'esperienza del capocantiere.</p>
+
+  <p>Questo significa che le informazioni esistono, ma sono:</p>
+
+  <ul>
+    <li><strong>Disperse</strong> — ogni persona ha il suo pezzo, nessuno ha il quadro completo.</li>
+    <li><strong>Non confrontabili</strong> — due commesse vengono gestite in modo diverso, quindi non si può imparare dall'una per migliorare l'altra.</li>
+    <li><strong>Volatili</strong> — quando una persona se ne va, il suo sapere se ne va con lei.</li>
+  </ul>
+
+  <p>È qui che si nasconde l'occasione vera. Non si tratta di "fare innovazione" in astratto, ma di mettere ordine: dare una forma strutturata a informazioni che già esistono. Ed è esattamente il punto di partenza del sistema che progetterò nei prossimi articoli.</p>
+
+  <h2>Il ritardo come opportunità</h2>
+
+  <p>C'è un modo più ottimista di leggere tutto questo. Proprio perché si parte da così indietro, anche un sistema semplice può produrre un miglioramento enorme. Non serve la dashboard più sofisticata del mondo: basta passare dal "non sappiamo se questa commessa è in utile o in perdita finché non è finita" al "lo sappiamo settimana per settimana".</p>
+
+  <div class="note">NOTA DI METODO · In questo diario alterno la parte teorica (capitoli 1 e 2 della tesi) con la parte pratica di costruzione del sistema. Quando un articolo si appoggia a una fonte, la cito; quando invece è una mia scelta progettuale o un'opinione, lo dico esplicitamente. L'obiettivo è che si capisca sempre dove finisce la letteratura e dove inizia il mio lavoro.</div>
+
+  <p>Nel prossimo articolo entro nel cuore del problema gestionale: cos'è davvero una commessa, perché ogni cantiere è di fatto un prototipo irripetibile, e perché questa unicità rende il controllo dei costi così difficile. È il presupposto per capire <em>cosa</em> dovremo misurare.</p>
+
+</article>
+
+<div class="end-strip">
+  <a class="next-link" href="index.html">Torna all'indice degli articoli</a>
+  <a class="next-link" href="#">Prossimo →<strong>Cos'è davvero una commessa</strong></a>
+</div>
+
+</body>
+</html>
